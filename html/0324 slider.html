@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="../slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="../slick/slick-theme.css"/>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="../slick/slick.min.js"></script>
+
+    <style>
+        /* 슬릭의 화살표 모양 수정 */
+        /* .slick-next::before와 .slick-prev::before */
+        .slick-next::before{
+            /* content 대신 background-image를 이용해서 바꿀 수도 있다 */
+            content: '>';
+            color: blueviolet;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(221, 235, 247);">
+    <div class="single-item" style="margin: 0 50px">
+        <div>your content</div>
+        <div>your content</div>
+        <div>your content</div>
+        <div>your content</div>
+    </div>
+
+    <script>
+        $(".single-item").slick({
+            autoplay: true,
+            autoplaySpeed: 1000,
+            infinite: true,
+            slidesToShow: 2,
+            slidesToScroll: 3
+        });
+    </script>
+</body>
+</html>

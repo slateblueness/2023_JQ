@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script>
+        // 문서의 태그가 출력되기 전에 호출하면 값을 가져올 수 없다
+        console.log($('#header'));
+
+        // 문서 준비 메소드 확인
+        // 문서가 다 준비된 이후에 코드 실행: 오류 방지
+        $(function(){
+        console.log($('#header'));
+        })
+    </script>
+</head>
+<body>
+    <h1 id="header">JQuery</h1>
+
+    <p><button id="button">제이쿼리로 접근하여 이벤트 생성</button></p>
+
+    <p><button id="button2">안의 값을 클릭했을 때 텍스트를 안녕으로 바꾸세요</button></p>
+
+    <ul id="list">
+        <li>첫 번째</li>
+        <li>두 번째</li>
+        <li>세 번째</li>
+        <li>네 번째</li>
+    </ul>
+
+    <form id="form">
+        <label for="">이름</label>
+        <input id="name" type="text">
+        <input type="submit" value="제출">
+    </form>
+
+    <ul id="list2">
+        <!-- 아래의 값을 'list 시작'으로 바꾸세요 -->
+        <li>1</li>
+
+        <!-- 아래의 값을 '제이쿼리를 통해 작성 중입니다'로 바꾸세요 -->
+        <li>2</li>
+
+        <!-- 아래의 값을 '세 번째 li태그입니다'로 바꾸세요 -->
+        <li>3</li>
+    </ul>
+
+    <script>
+        // 자바스크립트만 사용: 바닐라 자바스크립트
+        const header = document.querySelector("#header");
+
+        // 제이쿼리 사용
+        const headerJq = $("#header");
+
+        console.log(header);
+        console.log(headerJq);
+
+        // 제이쿼리로 접근하여 버튼에 이벤트 추가
+        $('#button').on('click', function(){
+            // 모든 속성에 메소드로 접근해서 값을 할당
+            headerJq.text("버튼을 눌렀습니다");
+            // 메소드로 클래스에 바로 접근
+            headerJq.addClass();
+            headerJq.removeClass();
+        })
+
+        // 제이쿼리로 id=button2에 접근하여 값 변경
+        $('#button2').on('click', function(e){
+            $('#button2').text("안녕");
+            // 이벤트 객체는 자바스크립트로 접근
+            // e.target.innerHTML = "안녕하세요";
+        })
+
+        /* 제이쿼리에서 CSS 선택자(QuerySelector에서 사용 가능) */
+        const ul = $('#list');
+
+        // 부모의 자식들 중에서 그 위치(인덱스1)에 있는 값을 찾을 때 사용
+        console.log($('#list>li:eq(1)')); // <li>두 번째</li>
+        // 부모의 자식들 중에서 그 위치(인덱스1)보다 큰 값을 찾을 때 사용
+        console.log($('#list li:gt(1)'))
+
+        /* 제이쿼리 메소드의 특징 */
+        // 제이쿼리는 속성에 직접 접근하지 않고 메소드로 값을 가져오거나 수정
+
+        // 값 수정(setter)
+        $('#header').text("글자를 수정합니다");
+
+        // 값 가져옴(getter)
+        console.log($('#header').text());
+
+        // form, input의 값을 가져오기 위한 메소드 val()
+        $('#name').val("값을 입력하였습니다");
+        console.log($('#name').val());
+
+        /* 제이쿼리 메소드 체이닝 */
+        // 제이쿼리를 이용하여 객체의 값을 변경한 후
+        // 다른 메소드를 이용해서 계속 변경이 가능하다
+        $('#name').height(60).width(300);
+
+        /* 제이쿼리를 이용한 생성 추가 */
+        const p = $('<p>');
+        p.text("값을 입력하였습니다: 생성된 태그")
+        $('body').append(p);
+        // 삭제
+        // p.remove();
+
+        /* 제이쿼리를 이용한 노드 탐색 */
+        // 부모, 형제, 자식 태그를 메소드로 찾을 수 있다
+        // 메소드 체이닝이 적용되어 메소드 뒤에 연결하여 연속적으로 찾을 수 있다
+        // 부모: parent(), 형제: next(), prev(), 자식: children(), find() - 선택자를 이용해서 찾음
+
+        // 제이쿼리에서 추가된 필터링 메소드
+        // .first(), .last(), .eq(), .filter()를 통해
+        // children()을 통해 자식들 중에서 원하는 값을 찾을 수 있다
+        console.log($('#list').children().first()); // 첫 번째 li태그 선택
+        console.log($('#list').children().eq(1)); // 두 번째 li태그(인덱스1) 선택
+        console.log($('#list').children().filter(':eq(2)')); // 세 번째 li태그(인덱스2) 선택
+
+        // 연습
+        // const li1 = $('#list2').children().first();
+        // $(li1).text("list 시작");
+        $('#list2').children().first().text("list 시작");
+
+        // const li2 = $('#list2').children().eq(1);
+        // $(li2).text("제이쿼리를 통해 작성 중입니다");
+        // filter에 작성된 css선택자는 현재 children 중에서 값을 찾는다
+        // :nth-child(2) 이대로 사용하면, 현재 자식 중 태그/클래스 상관없이 2번째 자식을 찾는다
+        $('#list2').children().filter('li:nth-child(2)').text("두 번째 li태그");
+
+        const li3 = $('#list2').children().last();
+        $(li3).text("세 번째 li태그입니다");
+    </script>
+</body>
+</html>
